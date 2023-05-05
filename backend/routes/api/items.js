@@ -172,6 +172,12 @@ router.get("/:item", auth.optional, function(req, res, next) {
 
 // update item
 router.put("/:item", auth.required, function(req, res, next) {
+  // WIP: https://github.com/ObelusFamily/Anythink-Market-kqkg9ci8/issues/1
+  //
+  // error.log("ERROR 3");
+  // console.log(`DEBUG 1: req=${req}`);
+  // res.write("XXXXXXX");
+  //
   User.findById(req.payload.id).then(function(user) {
     if (req.item.seller._id.toString() === req.payload.id.toString()) {
       if (typeof req.body.item.title !== "undefined") {
@@ -185,7 +191,10 @@ router.put("/:item", auth.required, function(req, res, next) {
       if (typeof req.body.item.image !== "undefined") {
         req.item.image = req.body.item.image;
       } else {
-        // TODO: https://github.com/ObelusFamily/Anythink-Market-kqkg9ci8/issues/1
+        //
+        // console.log(`DEBUG 2: req=${req}`);
+        // req.item.image = "this-is-a-fake-image";
+        //
       }
 
       if (typeof req.body.item.tagList !== "undefined") {
@@ -195,7 +204,12 @@ router.put("/:item", auth.required, function(req, res, next) {
       req.item
         .save()
         .then(function(item) {
+          // ORIG:
+          //
           return res.json({ item: item.toJSONFor(user) });
+          //
+          // return res.json({hello: "world"});
+          //    
         })
         .catch(next);
     } else {
