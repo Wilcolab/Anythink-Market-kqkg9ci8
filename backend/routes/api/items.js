@@ -184,6 +184,8 @@ router.put("/:item", auth.required, function(req, res, next) {
 
       if (typeof req.body.item.image !== "undefined") {
         req.item.image = req.body.item.image;
+      } else {
+        // TODO: https://github.com/ObelusFamily/Anythink-Market-kqkg9ci8/issues/1
       }
 
       if (typeof req.body.item.tagList !== "undefined") {
